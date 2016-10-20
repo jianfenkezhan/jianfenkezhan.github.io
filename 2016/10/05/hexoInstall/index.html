@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="技术," />
+  <meta name="keywords" content="技术,hexo,nodejs,NexT," />
 
 
 
@@ -90,16 +90,19 @@
 
 
 
-<meta name="description" content="前端">
+<meta name="description" content="写在前面想想工作了也蛮久了，很喜欢杭州的环境，所以毕业也是暂时留到杭州工作，以前写代码，有不会的地方，就要上去网查资料，看到许多人的博客，有记录生活和技术的，觉得的很酷，当时就在想，自己搞一个博客玩玩好了，但是这件事一直没有做起来，很遗憾，这次花了些时间，总算是搞好了。同时也打算把近些时候工作中遇到的技术问题给记录一下。同时，也想写写生活，废话多了一点。
+正文部分准备工作这里以windows为例，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="github & Hexo 搭建个性博客">
 <meta property="og:url" content="http://yoursite.com/2016/10/05/hexoInstall/index.html">
 <meta property="og:site_name" content="木见过">
-<meta property="og:description" content="前端">
-<meta property="og:updated_time" content="2016-10-06T07:35:00.589Z">
+<meta property="og:description" content="写在前面想想工作了也蛮久了，很喜欢杭州的环境，所以毕业也是暂时留到杭州工作，以前写代码，有不会的地方，就要上去网查资料，看到许多人的博客，有记录生活和技术的，觉得的很酷，当时就在想，自己搞一个博客玩玩好了，但是这件事一直没有做起来，很遗憾，这次花了些时间，总算是搞好了。同时也打算把近些时候工作中遇到的技术问题给记录一下。同时，也想写写生活，废话多了一点。
+正文部分准备工作这里以windows为例，">
+<meta property="og:updated_time" content="2016-10-06T16:12:05.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github & Hexo 搭建个性博客">
-<meta name="twitter:description" content="前端">
+<meta name="twitter:description" content="写在前面想想工作了也蛮久了，很喜欢杭州的环境，所以毕业也是暂时留到杭州工作，以前写代码，有不会的地方，就要上去网查资料，看到许多人的博客，有记录生活和技术的，觉得的很酷，当时就在想，自己搞一个博客玩玩好了，但是这件事一直没有做起来，很遗憾，这次花了些时间，总算是搞好了。同时也打算把近些时候工作中遇到的技术问题给记录一下。同时，也想写写生活，废话多了一点。
+正文部分准备工作这里以windows为例，">
 
 
 
@@ -157,7 +160,7 @@
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
-  <p class="site-subtitle">随笔记录</p>
+  <p class="site-subtitle">『well begun is half done』</p>
 </div>
 
 <div class="site-nav-toggle">
@@ -226,9 +229,32 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
   
 </nav>
 
@@ -328,7 +354,28 @@
       
 
       
-        
+        <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>想想工作了也蛮久了，很喜欢杭州的环境，所以毕业也是暂时留到杭州工作，以前写代码，有不会的地方，就要上去网查资料，看到许多人的博客，有记录生活和技术的，觉得的很酷，当时就在想，自己搞一个博客玩玩好了，但是这件事一直没有做起来，很遗憾，这次花了些时间，总算是搞好了。同时也打算把近些时候工作中遇到的技术问题给记录一下。同时，也想写写生活，废话多了一点。</p>
+<h3 id="正文部分"><a href="#正文部分" class="headerlink" title="正文部分"></a>正文部分</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>这里以windows为例，在配置博客之前，安装Hexo需要安装<code>ndoe.js</code>，所以首先你需要去网上下载并全局安装，很多博客都有写<code>node.js</code>的安装方法。可以去查一下，这里就不再赘述了，官网地址如下：</p>
+<blockquote>
+<p><a href="http://nodejs.cn/" target="_blank" rel="external">node.js传送门</a></p>
+</blockquote>
+<p>安装好之后，我们打开命令行，运行以下命令：</p>
+<blockquote>
+<p>npm install -g cnpm –registry=<a href="https://registry.npm.taobao.org" target="_blank" rel="external">https://registry.npm.taobao.org</a></p>
+</blockquote>
+<p>这段代码主要是用淘宝镜像代理包管理器<code>npm</code>,纯粹是为了在<code>ndoe</code>环境下安装模块能够快一些。大多数时候，随着项目越来越大，整个项目的依赖就变的很多了，这时候用<code>npm</code>实在是太慢了，相对来讲<code>cnpm</code>就很快。具体详情请前往<a href="http://npm.taobao.org/" target="_blank" rel="external">淘宝npm镜像代理</a>查看，<br>安装好了之后，还需要安装<code>git</code>工具，链接如下：</p>
+<blockquote>
+<p><a href="https://git-scm.com/download" target="_blank" rel="external">git传送门</a></p>
+</blockquote>
+<p>初此之外我们还需要在<em>github</em>上面注册一个账户，作为一个程序员，没有一个github账号就显的太low了，所以去注册一个吧！程序员的facebook,你值得拥有。<br>好了废话不多说了，到此我们的准备工作差不多完了。</p>
+<h4 id="出门迎战"><a href="#出门迎战" class="headerlink" title="出门迎战"></a>出门迎战</h4><ol>
+<li><p>打开命令行运行依次运行以下命令：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cnpm install hexo -g</div><div class="line">D:</div><div class="line">mkdir myblog</div><div class="line"><span class="built_in">cd</span> myblog</div><div class="line">hexo init</div><div class="line">cnpm install</div><div class="line">npm server</div></pre></td></tr></table></figure>
+</li>
+<li><p>从控制台我们就可发现，该服务器监听的端口是4000， 那么我们打开浏览器输入<code>http://localhost:4000</code> 查看，就会发现一个完整简洁的博客就已经出现了，是不是很方便，下面我们开始配置这个博客，并将部署到我们之前创建的<em>github</em>上面，就可以开始写作生涯了。</p>
+</li>
+</ol>
+
       
     </div>
 
@@ -351,6 +398,12 @@
         <div class="post-tags">
           
             <a href="/tags/技术/" rel="tag">#技术</a>
+          
+            <a href="/tags/hexo/" rel="tag">#hexo</a>
+          
+            <a href="/tags/nodejs/" rel="tag">#nodejs</a>
+          
+            <a href="/tags/NexT/" rel="tag">#NexT</a>
           
         </div>
       
@@ -436,12 +489,12 @@
                src="/images/avatar.gif"
                alt="Mujianguo" />
           <p class="site-author-name" itemprop="name">Mujianguo</p>
-          <p class="site-description motion-element" itemprop="description">前端</p>
+          <p class="site-description motion-element" itemprop="description">WEB</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -458,7 +511,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -487,7 +540,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正文部分"><span class="nav-number">2.</span> <span class="nav-text">正文部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#出门迎战"><span class="nav-number">2.2.</span> <span class="nav-text">出门迎战</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -638,6 +691,135 @@
 
   
   
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
 
   
 

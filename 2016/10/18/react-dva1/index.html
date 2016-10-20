@@ -1,0 +1,847 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="技术,react,dva,js,mockjs,webpack," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="准备工作因为项目涉及到react &amp;amp; dva ,所以首先我们需要安装dva-cli工具去初始化我们的项目，具体的安装方法，网上一大堆，这里不再赘述。有一点需要知道，dva是对redux一种封装，使得我们在处理数据，便于管理，项目结构更加清晰，能够将我们的重点更多的集中业务逻辑的处理上。大大提升开发效率。同时也便于后期数据维护。好了，讲这么多，下面开始实践了；在命令行中输入：12mkdir">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react & dva 全新的WEB应用数据解决方案（一）">
+<meta property="og:url" content="http://yoursite.com/2016/10/18/react-dva1/index.html">
+<meta property="og:site_name" content="木见过">
+<meta property="og:description" content="准备工作因为项目涉及到react &amp;amp; dva ,所以首先我们需要安装dva-cli工具去初始化我们的项目，具体的安装方法，网上一大堆，这里不再赘述。有一点需要知道，dva是对redux一种封装，使得我们在处理数据，便于管理，项目结构更加清晰，能够将我们的重点更多的集中业务逻辑的处理上。大大提升开发效率。同时也便于后期数据维护。好了，讲这么多，下面开始实践了；在命令行中输入：12mkdir">
+<meta property="og:updated_time" content="2016-10-20T01:55:02.485Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react & dva 全新的WEB应用数据解决方案（一）">
+<meta name="twitter:description" content="准备工作因为项目涉及到react &amp;amp; dva ,所以首先我们需要安装dva-cli工具去初始化我们的项目，具体的安装方法，网上一大堆，这里不再赘述。有一点需要知道，dva是对redux一种封装，使得我们在处理数据，便于管理，项目结构更加清晰，能够将我们的重点更多的集中业务逻辑的处理上。大大提升开发效率。同时也便于后期数据维护。好了，讲这么多，下面开始实践了；在命令行中输入：12mkdir">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6337912657714087000,
+      author: '木见过'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/18/react-dva1/"/>
+
+  <title> react & dva 全新的WEB应用数据解决方案（一） | 木见过 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">木见过</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">『well begun is half done』</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                react & dva 全新的WEB应用数据解决方案（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-18T11:19:36+08:00" content="2016-10-18">
+              2016-10-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/18/react-dva1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/18/react-dva1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>因为项目涉及到react &amp; dva ,所以首先我们需要安装<code>dva-cli</code>工具去初始化我们的项目，具体的安装方法，网上一大堆，这里不再赘述。有一点需要知道，<code>dva</code>是对<code>redux</code>一种封装，使得我们在处理数据，便于管理，项目结构更加清晰，能够将我们的重点更多的集中业务逻辑的处理上。大大提升开发效率。同时也便于后期数据维护。好了，讲这么多，下面开始实践了；在命令行中输入：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir dva-dome &amp;&amp; <span class="built_in">cd</span> dva-dome</div><div class="line">dva init</div></pre></td></tr></table></figure></p>
+<p>至此，我们就得到了一个标准的项目，这个项目的结构为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">·</div><div class="line">|———/mock/                #数据mock的接口文件</div><div class="line">|———/src/                 #项目源码目录</div><div class="line">| |—— /components/        #项目组件</div><div class="line">| |—— /routes/            #路由组件</div><div class="line">| |—— /models/            #数据模型</div><div class="line">| |—— /services/          #数据接口</div><div class="line">| |—— /utils/             #工具函数</div><div class="line">| |—— route.js            #路由配置</div><div class="line">| |—— index.js            #入口文件</div><div class="line">| |—— index.less          #index样式文件</div><div class="line">| |—— index.html</div><div class="line">|——— package.json         #项目信息</div><div class="line">|——— proxy.config.js      #数据mock配置</div></pre></td></tr></table></figure></p>
+<p>根据后面的注释，我们可以很清晰看出，该脚手架工具，已经为我们做好了很多事。方便简单。那就开始吧<br><a id="more"></a></p>
+<h2 id="设置路由"><a href="#设置路由" class="headerlink" title="设置路由"></a>设置路由</h2><p>项目结构有了，接下来，设置路由，首先在<code>.src/router.js</code>里面设置访问路径，接着在<code>/routes/</code>路径下面创建组件<code>User.jsx</code>。代码如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  .src/router.js</span></div><div class="line"><span class="keyword">import</span> React, &#123; PropTypes &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"><span class="keyword">import</span> &#123; Router, Route &#125; <span class="keyword">from</span> <span class="string">'dva/router'</span>;</div><div class="line"><span class="keyword">import</span> Users <span class="keyword">from</span> <span class="string">'./routes/User'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">&#123;history&#125;</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;Router history=&#123;history&#125;&gt;</div><div class="line">      &lt;Route path="/users" component=&#123;Users&#125;/&gt;</div><div class="line">    &lt;Router&gt;</div><div class="line">  )</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  /routes/User.js</span></div><div class="line"><span class="keyword">import</span> React, &#123; PropTypes &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;div&gt;User Router Comonent&lt;/div&gt;</div><div class="line">  )</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.PropTypes=&#123;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> User;</div></pre></td></tr></table></figure>
+<p>如此我们便创建了一个路由，其他业务页面路由也是如此创建。<br>看上去是如此的简单， 那么下面我不得不做工作使得我们组件更加的健壮，OK，GO！继续修改<code>/routes/User.js</code> 文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React, &#123; PropTypes &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="comment">// 业务组件，后面完善，这里占位。</span></div><div class="line"><span class="keyword">import</span> UserList <span class="keyword">from</span> <span class="string">'../components/Users/UserList'</span>;</div><div class="line"><span class="keyword">import</span> UserSearch <span class="keyword">from</span> <span class="string">'../components/Users/UserSearch'</span>;</div><div class="line"><span class="keyword">import</span> UserModal <span class="keyword">from</span> <span class="string">'../components/Users/UserModal'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./User.less'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">const</span> userSearchProps = &#123;&#125;;</div><div class="line">  <span class="keyword">const</span> userListProps = &#123;&#125;;</div><div class="line">  <span class="keyword">const</span> userModalProps = &#123;&#125;;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;div className=&#123;styles.base&#125;&gt;</div><div class="line">      &#123;/**用户筛选 */&#125;</div><div class="line">      &lt;UserSearch &#123;...userSearchProps&#125; /&gt;</div><div class="line">      &#123;/**用户信息列表 */&#125;</div><div class="line">      &lt;UserList &#123;...userListProps&#125; /&gt;</div><div class="line">      &#123;/**用户弹出层 */&#125;</div><div class="line">      &lt;UserModal &#123;...userModalProps&#125; /&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  )</div><div class="line">&#125;</div><div class="line"></div><div class="line">User.PropTypes=&#123;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line">export default User;</div></pre></td></tr></table></figure>
+<p>你会发现，该文件出现了 <code>UserList</code>, <code>UserSearch</code>, <code>UserModal</code> import进来的组件，没错它们就是我们需要的，对照代码中的路径，在对应目录下新建对应的文件，并添加<code>UI</code> 代码。如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  /components/Users/UserList.js</span></div><div class="line"><span class="keyword">import</span> React, &#123; PropType &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> ()=&gt;&lt;div&gt; 用户列表 &lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  /components/Users/UserSearch.js</span></div><div class="line"><span class="keyword">import</span> React, &#123; PropType &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> ()=&gt; &lt;div&gt; 用户筛选 &lt;/div&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//  /components/Users/UserModal.js</span></div><div class="line"><span class="keyword">import</span> React, &#123; PropType &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> ()=&gt; &lt;div&gt; 用户弹出层 &lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>OK! 到此为止，我可以检验一下成果了，启动服务器查看。命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm start</div></pre></td></tr></table></figure></p>
+<p>在浏览中输入<code>localhost:8989/#/User</code>查看。<br>很开心，我们已经看到了自己做得成果，很好，继续接着往下走，下面我们将把 <code>UserList</code>, <code>UserSearch</code>, <code>UserModal</code> 做成我们想要的样子。 对，看上去就是一脸想要的样子！嘿嘿。。。</p>
+<h2 id="UserList组件"><a href="#UserList组件" class="headerlink" title="UserList组件"></a>UserList组件</h2><p>有了 <code>UI</code>, 没数据怎么行吗？下面我们会将数据引进到组件里面，做成真正你想<em>要</em> 的样子。来修改<code>src/comments/Users/UserList.js</code>,具体代码如下:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">import React, &#123; PropType &#125; from 'react';</div><div class="line">import &#123; Table, message, Popconfirm &#125; from 'antd';</div><div class="line"></div><div class="line">const UserList = (&#123;</div><div class="line">  total,</div><div class="line">  current,</div><div class="line">  loading,</div><div class="line">  dataSource,</div><div class="line">&#125;) =&gt; &#123;</div><div class="line">  const columns = [&#123;</div><div class="line">    title: "姓名",</div><div class="line">    dataIndex: "name",</div><div class="line">    key: "name",</div><div class="line">    render: (text) =&gt; &lt;a href='javaScript:;'&gt;&#123;text&#125;&lt;/a&gt;</div><div class="line">  &#125;, &#123;</div><div class="line">    title: '年龄',</div><div class="line">    dataIndex: 'age',</div><div class="line">    key: 'age',</div><div class="line">  &#125;, &#123;</div><div class="line">    title: '住址',</div><div class="line">    dataIndex: 'address',</div><div class="line">    key: 'address',</div><div class="line">  &#125;, &#123;</div><div class="line">    title: '操作',</div><div class="line">    key: 'operation',</div><div class="line">    render: (text, record) =&gt; &#123;</div><div class="line">      &lt;p&gt;</div><div class="line">        &lt;a href="javaScript:;" onClick=&#123;()=&gt;&#123;&#125;&#125;&gt;编辑&lt;/a&gt;</div><div class="line">        &amp;nbsp;</div><div class="line">        &lt;Popconfirm title='确定要删除吗？'&gt;</div><div class="line">          &lt;a href="javaScript:;"&gt;删除&lt;/a&gt;</div><div class="line">        &lt;/Popconfirm&gt;</div><div class="line">      &lt;/p&gt;</div><div class="line">    &#125;</div><div class="line">  &#125;]</div><div class="line"></div><div class="line">  const pagination = &#123;</div><div class="line">    total,</div><div class="line">    current,</div><div class="line">    pageSize: 10,</div><div class="line">    onChange: ()=&gt;&#123;&#125;,</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  return (</div><div class="line">    &lt;div&gt;</div><div class="line">      &lt;Table</div><div class="line">        columns=&#123;columns&#125;</div><div class="line">        dataSource=&#123;dataSource&#125;</div><div class="line">        loading=&#123;loading&#125;</div><div class="line">        rowKey=&#123;record =&gt; record.id&#125;</div><div class="line">        pagination=&#123;pagination&#125;</div><div class="line">      /&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  )</div><div class="line">&#125;</div><div class="line">export default UserList;</div></pre></td></tr></table></figure>
+<p>这里我们借用国内支付宝团队做的一个优秀的 <code>UI</code> 样式库，其实在实际的项目中，我已经有用过该样式库，很方便，很优秀。虽然还没正式发布，但是值得一用。吐血推荐。好吧，这里免费打了一波广告。既然引用antd,所以我们需要在 <code>src/index.js</code> 中添加 <code>import &#39;antd/dist/antd.css&#39;</code> 引入antd样式库;</p>
+<h2 id="模拟数据添加到-UserList-组件"><a href="#模拟数据添加到-UserList-组件" class="headerlink" title="模拟数据添加到 UserList 组件"></a>模拟数据添加到 <code>UserList</code> 组件</h2><p>开始编辑 <code>/routes/User.js</code> 文件，跟着流程走，就会发现通过路由拿到数据，然后再传到页面的 <code>UI</code> 元素中。 代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> React, &#123; PropTypes &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</div><div class="line"></div><div class="line"><span class="comment">// 业务组件，后面完善，这里占位。</span></div><div class="line"><span class="keyword">import</span> UserList <span class="keyword">from</span> <span class="string">'../components/Users/UserList'</span>;</div><div class="line"><span class="keyword">import</span> UserSearch <span class="keyword">from</span> <span class="string">'../components/Users/UserSearch'</span>;</div><div class="line"><span class="keyword">import</span> UserModal <span class="keyword">from</span> <span class="string">'../components/Users/UserModal'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./User.less'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">  <span class="keyword">const</span> userSearchProps = &#123;&#125;;</div><div class="line">  <span class="keyword">const</span> userListProps = &#123;</div><div class="line">    <span class="attr">total</span>: <span class="number">3</span>,</div><div class="line">    <span class="attr">current</span>: <span class="number">1</span>,</div><div class="line">    <span class="attr">loading</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">dataSource</span>: [</div><div class="line">      &#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">"木见过"</span>,</div><div class="line">        <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">        <span class="attr">address</span>: <span class="string">"滨江"</span></div><div class="line">      &#125;, &#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">"懂得"</span>,</div><div class="line">        <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">        <span class="attr">address</span>: <span class="string">"滨江"</span></div><div class="line">      &#125;, &#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">"生活"</span>,</div><div class="line">        <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">        <span class="attr">address</span>: <span class="string">"花园"</span></div><div class="line">      &#125;, &#123;</div><div class="line">        <span class="attr">name</span>: <span class="string">"琪琪"</span>,</div><div class="line">        <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">        <span class="attr">address</span>: <span class="string">"北京"</span></div><div class="line">      &#125;, </div><div class="line">    ]</div><div class="line">  &#125;;</div><div class="line">  <span class="keyword">const</span> userModalProps = &#123;&#125;;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;div className=&#123;styles.base&#125;&gt;</div><div class="line">      &#123;/**用户筛选 */&#125;</div><div class="line">      &lt;UserSearch &#123;...userSearchProps&#125; /&gt;</div><div class="line">      &#123;/**用户信息列表 */&#125;</div><div class="line">      &lt;UserList &#123;...userListProps&#125; /&gt;</div><div class="line">      &#123;/**用户弹出层 */&#125;</div><div class="line">      &lt;UserModal &#123;...userModalProps&#125; /&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  )</div><div class="line">&#125;</div><div class="line">User.PropTypes=&#123;</div><div class="line">  user: PropTypes.object,</div><div class="line">&#125;;</div><div class="line">export default User;</div></pre></td></tr></table></figure>
+<p>做完之后就可在页面中查看了，是不是有点意思。好了，继续往下走。谁让我们目标那么的远大呢！这让我想起一句话， 人生不止有狗粮，还有到不了的远方和读不懂的诗，但不管怎么样，一路向西，死也要死在路上。哈哈哈。。。从上面的代码可以看出，我们用的是假数据模拟。接下来玩点高端的，我们将把所有数据在 <code>models</code> 中抽象出来，这样非常便于日后的数据维护。</p>
+<h2 id="添加Reducers"><a href="#添加Reducers" class="headerlink" title="添加Reducers"></a>添加Reducers</h2><p>这是一个全新的概念，这次接这个做笔记的机会理解一下。dva 中 Reducer 的概念，主要是源于下层封装的 redux, 在 dva 中 reducers 主要负责修改model的数据（state）,<br>看资料得知为什么会叫<code>reducer</code>这个名字，在很多程序中，一个数组都具备reduce这个方法，该方法的功能就是<em>聚合</em>用，例如以下代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;,&#123;<span class="attr">y</span>:<span class="number">2</span>&#125;,&#123;<span class="attr">z</span>:<span class="number">3</span>&#125;].reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev, next</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> object.assign(prev, next);</div><div class="line">&#125;)</div><div class="line"><span class="comment">// return &#123;x:1, y:2, z:3&#125;</span></div></pre></td></tr></table></figure></p>
+<p>OK, 从上面的代码中我们可以看出，程序将三个对象合成一个对象了。这就是<code>reducer</code>想要达到目的。 如果你了解更多，可以参看<a href="http://redux.js.org/docs/basics/Reducers.html" target="_blank" rel="external">‘Redux Reducers’</a></p>
+<h2 id="动手开始给User-Model-添加-Reducers"><a href="#动手开始给User-Model-添加-Reducers" class="headerlink" title="动手开始给User Model 添加 Reducers"></a>动手开始给User Model 添加 Reducers</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">namespace</span>: <span class="string">'user'</span>,</div><div class="line">  <span class="attr">state</span>: &#123;</div><div class="line">    <span class="attr">list</span>: [],</div><div class="line">    <span class="attr">tatal</span>: <span class="literal">null</span>,</div><div class="line">    <span class="attr">loading</span>: <span class="literal">false</span>,            </div><div class="line">    <span class="attr">current</span>: <span class="literal">null</span>,</div><div class="line">    <span class="attr">currentItem</span>: &#123;&#125;,</div><div class="line">    <span class="attr">modalVisible</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">modalType</span>: <span class="string">'create'</span>,</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="attr">effects</span>: &#123;</div><div class="line">    *query()&#123;&#125;,</div><div class="line">    *create()&#123;&#125;,</div><div class="line">    *<span class="string">'delete'</span>()&#123;&#125;,</div><div class="line">    *update()&#123;&#125;,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">reducers</span>: &#123;</div><div class="line">    showLoading()&#123;&#125;,</div><div class="line">    showModal()&#123;&#125;,</div><div class="line">    hideModal()&#123;&#125;,</div><div class="line">    querySuccess(state)&#123;</div><div class="line">      <span class="keyword">const</span> mock = &#123;</div><div class="line">        <span class="attr">total</span>: <span class="number">3</span>,</div><div class="line">        <span class="attr">current</span>: <span class="number">1</span>,</div><div class="line">        <span class="attr">loading</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">dataSource</span>: [</div><div class="line">          &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">"木见过"</span>,</div><div class="line">            <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">            <span class="attr">address</span>: <span class="string">"滨江"</span></div><div class="line">          &#125;, &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">"懂得"</span>,</div><div class="line">            <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">            <span class="attr">address</span>: <span class="string">"滨江"</span></div><div class="line">          &#125;, &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">"生活"</span>,</div><div class="line">            <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">            <span class="attr">address</span>: <span class="string">"花园"</span></div><div class="line">          &#125;, &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">"琪琪"</span>,</div><div class="line">            <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">            <span class="attr">address</span>: <span class="string">"北京"</span></div><div class="line">          &#125;, </div><div class="line">        ],</div><div class="line">      &#125;;</div><div class="line">      <span class="keyword">return</span> &#123;...state, ...mock, <span class="attr">loading</span>: <span class="literal">false</span>&#125;;</div><div class="line">    &#125;,</div><div class="line">    createSuccess()&#123;&#125;,</div><div class="line">    deleteSuccess()&#123;&#125;,</div><div class="line">    updateSuccess()&#123;&#125;,</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OK,上面的代码中，我们已经将原来模拟的静态数据迁移到models的 <code>reducers</code> 里面了，但是这还不够，我们需要将数据和UI组件关联起来。下面干死它。</p>
+<h2 id="关联Modal"><a href="#关联Modal" class="headerlink" title="关联Modal"></a>关联Modal</h2><p>当组件和 Model 建立了关系之后，我们还需要去调用一下 Reducers 的，就是需要在组件发起一个action。直接看代码：</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">  <span class="keyword">import</span> &#123; hashHistory &#125; <span class="keyword">from</span> <span class="string">'dva/router'</span>;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</div><div class="line">  <span class="attr">namespace</span>: <span class="string">'user'</span>,</div><div class="line">  <span class="attr">state</span>: &#123;</div><div class="line">    <span class="attr">list</span>: [],</div><div class="line">    <span class="attr">tatal</span>: <span class="literal">null</span>,</div><div class="line">    <span class="attr">loading</span>: <span class="literal">false</span>,            </div><div class="line">    <span class="attr">current</span>: <span class="literal">null</span>,</div><div class="line">    <span class="attr">currentItem</span>: &#123;&#125;,</div><div class="line">    <span class="attr">modalVisible</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">modalType</span>: <span class="string">'create'</span>,</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="comment">// 订阅数据</span></div><div class="line">  subscriptions: &#123;</div><div class="line">    setup(&#123; dispatch, history &#125;) &#123;</div><div class="line">      history.listen(<span class="function"><span class="params">localtion</span> =&gt;</span> &#123;</div><div class="line">        <span class="keyword">if</span>(localtion.pathname === <span class="string">'/User'</span>) &#123;</div><div class="line">          dispatch(&#123;</div><div class="line">            <span class="attr">type</span>: <span class="string">'querySuccess'</span>,</div><div class="line">            <span class="attr">payload</span>: &#123;&#125;,</div><div class="line">          &#125;)</div><div class="line">        &#125;</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="attr">effects</span>: &#123;</div><div class="line">    *query()&#123;&#125;,</div><div class="line">    *create()&#123;&#125;,</div><div class="line">    *<span class="string">'delete'</span>()&#123;&#125;,</div><div class="line">    *update()&#123;&#125;,</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">reducers</span>: &#123;</div><div class="line">    showLoading()&#123;&#125;,</div><div class="line">    showModal()&#123;&#125;,</div><div class="line">    hideModal()&#123;&#125;,</div><div class="line">    querySuccess(state)&#123;</div><div class="line">      <span class="keyword">const</span> mock = &#123;</div><div class="line">        <span class="attr">total</span>: <span class="number">3</span>,</div><div class="line">        <span class="attr">current</span>: <span class="number">1</span>,</div><div class="line">        <span class="attr">loading</span>: <span class="literal">false</span>,</div><div class="line">        <span class="attr">dataSource</span>: [</div><div class="line">          &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">"木见过"</span>,</div><div class="line">            <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">            <span class="attr">address</span>: <span class="string">"滨江"</span></div><div class="line">          &#125;, &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">"懂得"</span>,</div><div class="line">            <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">            <span class="attr">address</span>: <span class="string">"滨江"</span></div><div class="line">          &#125;, &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">"生活"</span>,</div><div class="line">            <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">            <span class="attr">address</span>: <span class="string">"花园"</span></div><div class="line">          &#125;, &#123;</div><div class="line">            <span class="attr">name</span>: <span class="string">"琪琪"</span>,</div><div class="line">            <span class="attr">age</span>: <span class="number">18</span>,</div><div class="line">            <span class="attr">address</span>: <span class="string">"北京"</span></div><div class="line">          &#125;, </div><div class="line">        ],</div><div class="line">      &#125;;</div><div class="line">      <span class="keyword">return</span> &#123;...state, ...mock, <span class="attr">loading</span>: <span class="literal">false</span>&#125;;</div><div class="line">    &#125;,</div><div class="line">    createSuccess()&#123;&#125;,</div><div class="line">    deleteSuccess()&#123;&#125;,</div><div class="line">    updateSuccess()&#123;&#125;,</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码中，我们是在一个页面初始化的时候发出 action 获取数据，然后渲染到页面中。奥，对了，还有一点需要注意一下，当你定义好了 modal 之后，千万别忘了在 <code>src/index.js</code> 引入该数据模型，然后就爽歪歪了，代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.model(<span class="built_in">require</span>(<span class="string">'./models/users'</span>));</div></pre></td></tr></table></figure>
+<h2 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a>本章小结</h2><p>写到这里，其实大部分已经写完了，所以我们需要理一下思路比较好。</p>
+<blockquote>
+<ol>
+<li>首先我们在 <code>src/components</code> 新建文件夹 Users 用来存放所有与用户信息相关的组件，在的该文件下新建了3个 UI 组件去描述用户信息。</li>
+<li>UI 组件新建好了， 接下来去路由文件夹 <code>/routes/</code> 文件夹下面，新建路由组件，并且引入之前下的3个 UI 组件。</li>
+<li>路由组件写好之后，我们就可以配置路由了，OK，找到 <code>src/router.js</code> 添加该Web页面的路由，具体代码请查看本文前部分。</li>
+<li>好像所有准备工作都做好了，剩下的就是核心了， <em>数据</em>， 找到 models 文件夹然后，新建数据 users.js，去处理数据。具体源码见上文。</li>
+<li>这篇文章中，我们只是模拟了静态数据，实际的业务逻辑都是请求接口，是异步操作，在请求拿到数据后，怎么去更新state， 下面将会讲到。</li>
+</ol>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag">#技术</a>
+          
+            <a href="/tags/react/" rel="tag">#react</a>
+          
+            <a href="/tags/dva/" rel="tag">#dva</a>
+          
+            <a href="/tags/js/" rel="tag">#js</a>
+          
+            <a href="/tags/mockjs/" rel="tag">#mockjs</a>
+          
+            <a href="/tags/webpack/" rel="tag">#webpack</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/05/Tags/" rel="next" title="css hack for IE6,7,8,9,11">
+                <i class="fa fa-chevron-left"></i> css hack for IE6,7,8,9,11
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/19/react-dva2/" rel="prev" title="react & dva 全新的WEB应用数据解决方案(二)">
+                react & dva 全新的WEB应用数据解决方案(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/18/react-dva1/"
+           data-title="react & dva 全新的WEB应用数据解决方案（一）" data-url="http://yoursite.com/2016/10/18/react-dva1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Mujianguo" />
+          <p class="site-author-name" itemprop="name">Mujianguo</p>
+          <p class="site-description motion-element" itemprop="description">WEB</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置路由"><span class="nav-number">2.</span> <span class="nav-text">设置路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UserList组件"><span class="nav-number">3.</span> <span class="nav-text">UserList组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟数据添加到-UserList-组件"><span class="nav-number">4.</span> <span class="nav-text">模拟数据添加到 UserList 组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Reducers"><span class="nav-number">5.</span> <span class="nav-text">添加Reducers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动手开始给User-Model-添加-Reducers"><span class="nav-number">6.</span> <span class="nav-text">动手开始给User Model 添加 Reducers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关联Modal"><span class="nav-number">7.</span> <span class="nav-text">关联Modal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本章小结"><span class="nav-number">8.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+      <a href="https://github.com/jianfenkezhan/jianfenkezhan.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mujianguo</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mujianguo"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
