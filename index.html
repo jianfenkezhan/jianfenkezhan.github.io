@@ -90,15 +90,15 @@
 
 
 
-<meta name="description" content="WEB">
+<meta name="description" content="well begun is half done">
 <meta property="og:type" content="website">
 <meta property="og:title" content="木见过">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="木见过">
-<meta property="og:description" content="WEB">
+<meta property="og:description" content="well begun is half done">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="木见过">
-<meta name="twitter:description" content="WEB">
+<meta name="twitter:description" content="well begun is half done">
 
 
 
@@ -158,7 +158,7 @@
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
-  <p class="site-subtitle">『well begun is half done』</p>
+  <p class="site-subtitle">If at first you don't succeed, get a bigger hammer.</p>
 </div>
 
 <div class="site-nav-toggle">
@@ -265,6 +265,133 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/25/mongodbackup/" itemprop="url">
+                  mongoDB 的全量备份 思路 & 脚本
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-25T17:12:24+08:00" content="2016-11-25">
+              2016-11-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/25/mongodbackup/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/25/mongodbackup/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>今天心情好就写点东西，毕业也将近一年了，感觉生活 &amp; 工作各个方面都还行，就是运动缺乏运动，所谓生命在于运动还是道理，不说废话了。我们直接进入主题吧。最进做了项目，用到了mongodDB数据库，关于mongoDB数据库，本文就不再介绍了，这里主要说一下mongoDB在阿里云上的全量备份方法。我们都是linux系统的菜鸟，对linux几乎一无所知的同学可以看一下，因为我在做备份之前，也是一脸蒙逼。下面我们来看一下吧。</p>
+<h2 id="备份思路"><a href="#备份思路" class="headerlink" title="备份思路"></a>备份思路</h2><ol>
+<li>这次我们做的是全量备份，与<code>mongoDB</code>增量备份是不同的。相对来说，增量备份实现有些困难，之后有时间做增量备份吧! 全量备份顾名思义，就是全部备份，缺点就是每次备份都是将整个数据库都备份了。这样就很浪费内存，要知道线上机器的内存都是花钱买来的，但是为了数据安全，也就先这么着吧！</li>
+<li>用过<code>mongoDB</code>都知道，在安装<code>mongoDB</code>数据库的时候，我们在对应的<code>*./bin</code>文件下面可以看到好多的<code>.exe</code>文件，这些工具就是 <code>mongoDB</code> 提供给用户管理数据库用的。今天我们主要用到了 <code>mongodump.exe</code> 这个工具，此工具就是用来备份数据库的，好处就是该工具在运行时，数据库依然可以正常写入和读取，有些时候我们备份数据库的时候，通常都是先锁定数据库防止写入，然后备份，备份好之后，再解锁。但是用了 <code>mongoDB</code> 自带的 <code>mongodump.exe</code> 我们可以放心的备份而不需要锁定数据库。</li>
+<li>由于线上的机器肯定装了<code>mongoDB</code>数据库，所以我们今天的备份思路就是，在线上加定时任务，去执行一个 <code>shell</code> 脚本，然后再 <code>shell</code> 脚本中调用 <code>mongoDB</code> 自带的工具<code>mongodump</code> 备份数据库就好了，然后，我的设置是每天凌晨备份，保留最近 <code>7天</code> 的数据，<code>7天</code> 之前全部删掉，没必要保留。</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/25/mongodbackup/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -777,115 +904,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/05/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-05T13:39:03+08:00" content="2016-10-05">
-              2016-10-05
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/10/05/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/05/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -922,7 +940,7 @@
                src="/images/avatar.gif"
                alt="Mujianguo" />
           <p class="site-author-name" itemprop="name">Mujianguo</p>
-          <p class="site-description motion-element" itemprop="description">WEB</p>
+          <p class="site-description motion-element" itemprop="description">well begun is half done</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
@@ -935,7 +953,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -944,7 +962,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
